@@ -35,6 +35,7 @@ git clone https://github.com/Dodopoud/Library-Management-Project
 ```
 src/
 ├── Main.java      → Entry point, handles user interaction
+├── LubraryMenu.java → Handles all user interaction and menu logic
 ├── Library.java   → Brain of the system, manages all logic
 ├── Book.java      → Represents a book
 ├── Member.java    → Represents a library member
