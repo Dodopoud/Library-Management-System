@@ -254,6 +254,7 @@ public class Library {
 	public void borrowBook(String memberID, String bookID) {
 		Member m = searchMemberByID(memberID);
 		Book b = searchBookByID(bookID);
+		
 		if (m == null) {
 			System.out.println("Member not found!");
 		}
