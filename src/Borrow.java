@@ -1,10 +1,10 @@
 import java.time.LocalDate;
 
 public class Borrow {
-	private String memberID;
-	private String bookID;
-	private LocalDate borrowDate;
-	private LocalDate dueDate;
+	private final String memberID;
+	private final String bookID;
+	private final LocalDate borrowDate;
+	private final LocalDate dueDate;
 	
 	public Borrow(String memberID, String bookID, LocalDate borrowDate){
 		this.memberID = memberID;

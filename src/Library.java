@@ -7,30 +7,28 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-//SOS:Library Class is the brain of the system. All logic lives here. Book and Member just hold data.
-//Here Members and Books are created and added to the ArrayLists.
+//Library Class is the brain of the system, where members and books are created.
 
 public class Library {
-	private ArrayList<Member> members = new ArrayList<Member>();
-	private ArrayList<Book> books = new ArrayList<Book>();
-	private ArrayList<Borrow> borrows = new ArrayList<Borrow>();
+	private final ArrayList<Member> members = new ArrayList<>();
+	private final ArrayList<Book> books = new ArrayList<>();
+	private final ArrayList<Borrow> borrows = new ArrayList<>();
 	private int bookCounter = 0;
 	private int memberCounter = 0;
 
 	
-	//add members method
 	public void addMember(String name, String surname) {
-		memberCounter++;
-		String id = "M" + String.format("%03d", memberCounter ); //Create the M001 sequence, memberCounter increased so there are no duplicates
-		Member m = new Member(name, surname, id); //create the object member
-		members.add(m);//add the new member to the list
+		memberCounter++; 
+		String id = "M" + memberCounter; //Create the M1, M2, M3.. sequence
+		Member m = new Member(name, surname, id); 
+		members.add(m);
 		
 	}
 	
 	public void addBook(String title, String author, String category, int copies) {
 		bookCounter++;
-		String id = "B" + String.format("%03d", bookCounter ); //Create the B001 sequence, bookCounter increased so there are no duplicates
-		Book b = new Book (title, author,id, category, copies);
+		String id = "B" +  bookCounter; //Create the B1, B2, B3 .. sequence
+		Book b = new Book (title, author, id, category, copies);
 		books.add(b);
 		
 	}
@@ -70,7 +68,7 @@ public class Library {
 	
 	public Book searchBookByTitle(String title) {
 		for(Book b : books) {
-			if( b.getTitle().equals(title)) {
+			if( b.getTitle().equalsIgnoreCase(title)) { //case insensitive search
 				return b;
 			}
 			
@@ -96,24 +94,36 @@ public class Library {
 		return null;
 	}
 	
-	public void removeMember(String id) { //find the member by id and remove them
+	// Cannot remove member with active borrows
+
+	public void removeMember(String id) { 
 		Member m = searchMemberByID(id);
-		if (m != null) {
-			members.remove(m);
+		if ( m != null){
+			if (!hasActiveBorrow(id)) {
+				members.remove(m);
+			}
+			else {
+				System.out.println("Member has active borrows.");
+			}
 		}
-		else {
-			System.out.println("Member not found!");
+		else{
+			System.out.println("Member not found.");
 		}
-		
 	}
-	
+
+	// Cannot remove book if currently borrowed
 	public void removeBook(String id) {
 		Book b = searchBookByID(id);
-		if (b != null) {
-			books.remove(b);
+		if (b != null){
+			if(!isBorrowed(id)){
+				books.remove(b);
+			}
+			else {
+				System.out.println("This book is borrowed.");
+			}
 		}
 		else {
-			System.out.println("Book not found!");
+			System.out.println("Book not found.");
 		}
 	}
 	
@@ -180,7 +190,7 @@ public class Library {
 				int copies = Integer.parseInt(parts[4]);
 				Book b = new Book(title, author, id, category, copies);
 				books.add(b);
-				bookCounter++;
+				bookCounter++; //increment to avoid duplicate IDs
 			}
 		}
 		catch (IOException e) {
@@ -207,7 +217,7 @@ public class Library {
 				String surname = parts[2];
 				Member m = new Member(name, surname, id);
 				members.add(m);
-				memberCounter++;
+				memberCounter++; //increment to avoid duplicate IDs
 			}
 		}
 		catch (IOException e) {
@@ -295,5 +305,27 @@ public class Library {
 			System.out.println("No overdue books!");
 		}
 	}
+
+	// Checks if member has any active borrow
+	public boolean hasActiveBorrow(String memberID){
+		for (Borrow b : borrows){
+			if ( b.getMemberID().equals(memberID)){
+				return true;
+			}
+		}
+			return false;
+		}
+
+	// Checks if book is currently borrowed
+	public boolean isBorrowed(String bookID){
+			for (Borrow b : borrows){
+				if (b.getBookID().equals(bookID)){
+					return true;
+				}
+			
+			}
+			return false;
+		}
 	}
+	
 

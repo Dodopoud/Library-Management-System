@@ -1,10 +1,10 @@
 //Book Class
 
 public class Book {
-	private String title;
-	private String author;
-	private String bookID;
-	private String category;
+	private final String title;
+	private final String author;
+	private final String bookID;
+	private final String category;
 	private int copies;
 	
 	public Book(String title, String author, String bookID, String category, int copies){

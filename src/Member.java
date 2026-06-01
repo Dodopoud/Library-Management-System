@@ -1,9 +1,9 @@
 //Member Class
 
 public class Member{
-	private String name;
-	private String surname;
-	private String id;
+	private final String name;
+	private final String surname;
+	private final String id;
 	
 	
 	public Member(String name, String surname, String id){
