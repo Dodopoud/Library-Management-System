@@ -18,7 +18,7 @@ a clear separation of responsibilities and data persistence.
 - Borrow and return books
 - Automatic due date calculation (14 days)
 - Overdue book detection
-- Auto-generated unique IDs (B001, M001...)
+- Auto-generated unique IDs (B1, M1...)
 - Data persistence using CSV files
 - Input validation and error handling
 
@@ -44,3 +44,23 @@ git clone https://github.com/Dodopoud/Library-Management-System
 2. In Eclipse (or any Java IDE), create a new Java project and copy the contents of the `src` folder into it.
 3. Run `Main.java`.
 4. Use the menu to interact with the system. Data is saved to CSV files when you exit with option `0`.
+
+---
+
+## Project Structure
+
+```
+src/
+├── Main.java        -> Entry point
+├── LibraryMenu.java -> Menu and user interaction
+├── Library.java     -> Core logic of the system
+├── Book.java        -> Represents a book
+├── Member.java      -> Represents a library member
+└── Borrow.java      -> Represents a borrow record with due date
+```
+
+---
+
+## Author
+
+**Dimitra Dodopoulou** · [GitHub](https://github.com/Dodopoud)
