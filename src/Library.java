@@ -190,7 +190,13 @@ public class Library {
 				int copies = Integer.parseInt(parts[4]);
 				Book b = new Book(title, author, id, category, copies);
 				books.add(b);
-				bookCounter++; //increment to avoid duplicate IDs
+
+				// Keep the counter at the highest ID in the file (not the number of books),
+				// so deleted IDs are never reused and new IDs stay unique.
+				int num = Integer.parseInt(id.substring(1));
+				if (num > bookCounter) {
+					bookCounter = num;
+				}
 			}
 		}
 		catch (IOException e) {
@@ -217,7 +223,11 @@ public class Library {
 				String surname = parts[2];
 				Member m = new Member(name, surname, id);
 				members.add(m);
-				memberCounter++; //increment to avoid duplicate IDs
+				// Same logic as for books: keep the highest member ID
+				int num = Integer.parseInt(id.substring(1));
+				if (num > memberCounter) {
+					memberCounter = num;
+				}
 			}
 		}
 		catch (IOException e) {
