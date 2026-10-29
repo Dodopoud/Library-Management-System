@@ -43,4 +43,4 @@ git clone https://github.com/Dodopoud/Library-Management-System
 
 2. In Eclipse (or any Java IDE), create a new Java project and copy the contents of the `src` folder into it.
 3. Run `Main.java`.
-4. Log in with the demo
+4. Use the menu to interact with the system. Data is saved to CSV files when you exit with option `0`.
